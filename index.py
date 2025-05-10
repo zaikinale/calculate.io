@@ -97,14 +97,89 @@ def calculate_permutation_with_repetitions():
     print(f"\nКоличество уникальных перестановок: {result}")
 
 
+def calculate_classic_threat():
+    print("\n" + "="*50)
+    print("Классическая вероятность P(A)=m/n")
+    print("="*50)
+    try:
+        m = int(input("Введите количество благоприятных исходов (m): "))
+        n = int(input("Введите количество всевозможные исходы (n): "))
+        
+        if m < 0 or n < 0:
+            print("Ошибка: числа должны быть неотрицательными")
+            return
+        
+        if m > n:
+            print("Ошибка: m не может быть больше n")
+            return
+            
+        result = m / n
+        print(f"\nЧисло классической вероятности равно: {result}")
+        print(f"Формула: P(A) = {m} / {n} = {result}")
+    except ValueError:
+        print("Ошибка: введите целые числа")
 
+def calculate_Bernoullis_formula():
+    print("\n" + "="*50)
+    print("Формула Бернулли Pn(k) = Cn^k * p^k * q^(n-k)")
+    print("="*50)
+    
+    try:
+        n = int(input("Введите количество испытаний (n): "))
+        k = int(input("Введите количество благоприятных исходов (k): "))
+        p = float(input("Введите вероятность успеха в одном испытании (p): "))
+        q = 1 - p
 
+        if n < 0 or k < 0:
+            print("Ошибка: числа n и k должны быть неотрицательными")
+            return
+        
+        if k > n:
+            print("Ошибка: k не может быть больше n")
+            return
 
+        if not (0 <= p <= 1):
+            print("Ошибка: вероятность p должна быть в диапазоне [0, 1]")
+            return
+            
+        result = math.comb(n, k) * (p ** k) * (q ** (n - k))
+        print(f"\nВероятность по формуле Бернулли равна: {result:.6f}")
+        print(f"Формула: P({n}, {k}) = C({n}, {k}) * {p}^{k} * {q:.4f}^{n - k} ≈ {result:.6f}")
+        
+    except ValueError:
+        print("Ошибка: неверный формат ввода. Убедитесь, что вы ввели числа.")
 
+def calculate_Poisson_formula():
+    print("\n" + "="*50)
+    print("Формула Пуассона P(k) = (λ^k * e^-λ) / k!")
+    print("="*50)
 
+    try:
+        n = int(input("Введите количество испытаний (n): "))
+        k = int(input("Введите количество событий (k): "))
+        p = float(input("Введите вероятность события (p): "))
+        
+        # Параметр λ (лямбда)
+        λ = n * p
+        
+        if n < 0 or k < 0:
+            print("Ошибка: n и k должны быть неотрицательными")
+            return
+        
+        if not (0 <= p <= 1):
+            print("Ошибка: вероятность p должна быть в диапазоне [0, 1]")
+            return
 
+        e = math.e  # Константа e ≈ 2.71828...
+        poisson_prob = (λ**k * e**(-λ)) / math.factorial(k)
 
+        # Вывод результата
+        print(f"\nПараметр λ (лямбда) = n * p = {n} * {p} = {λ:.4f}")
+        print(f"Вероятность по формуле Пуассона равна: {poisson_prob:.6f}")
+        print(f"Формула: P({k}) = ({λ:.2f}^{k} * e^-{λ:.2f}) / {k}! ≈ {poisson_prob:.6f}")
 
+    except ValueError:
+        print("Ошибка: неверный формат ввода. Убедитесь, что вы ввели числа.")
 
 
 
@@ -114,6 +189,9 @@ def show_menu():
         "2": ("Размещения (A)", calculate_accommodation),
         "3": ("Перестановки (P)", calculate_rearrangement),
         "4": ("Перестановки с повторениями", calculate_permutation_with_repetitions),
+        "5": ("Классическая вероятность", calculate_classic_threat),
+        "6": ("Формула Бернулли", calculate_Bernoullis_formula),
+        "7": ("Формула Пуассона", calculate_Poisson_formula),
         "0": ("Выход", exit)
     }
     
@@ -125,7 +203,7 @@ def show_menu():
             print(f"{key}. {desc}")
         print("="*50)
         
-        choice = input("Выберите операцию (0-4): ").strip()
+        choice = input("Выберите операцию (0-6): ").strip()
         
         if choice in menu:
             if choice == "0":
