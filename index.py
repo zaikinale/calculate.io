@@ -203,7 +203,7 @@ def show_menu():
             print(f"{key}. {desc}")
         print("="*50)
         
-        choice = input("Выберите операцию (0-6): ").strip()
+        choice = input("Выберите операцию (0-7): ").strip()
         
         if choice in menu:
             if choice == "0":
